@@ -156,16 +156,32 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
                   <span>Administración</span>
                 </span>
                 <ChevronDownIcon className={`w-5 h-5 transition ${isTablesOpen ? 'rotate-180' : 'rotate-0'}`} />
-              </button>
+             </button>
               {isTablesOpen && (
                 <ul className="ml-6 mt-2 space-y-1">
-                  <li><Link href="/administracion/productos" className="text-sm text-gray-400 hover:text-white">Productos</Link></li>
-                  <li><Link href="/administracion/inventarios" className="text-sm text-gray-400 hover:text-white">Inventario</Link></li>
-                  <li><Link href="/administracion/pedidos" className="text-sm text-gray-400 hover:text-white">Pedidos</Link></li>
-                  <li><Link href="/administracion/categorias" className="text-sm text-gray-400 hover:text-white">Categorías</Link></li>
-                  <li><Link href="/administracion/usuarios" className="text-sm text-gray-400 hover:text-white">Usuarios</Link></li>
+                  <li>
+                    <Link href="/dashboard/reservations" className="text-sm text-gray-400 hover:text-white">
+                      Reservaciones
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/dashboard/ticket-types" className="text-sm text-gray-400 hover:text-white">
+                      Tipos de Ticket
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/dashboard/payment-logs" className="text-sm text-gray-400 hover:text-white">
+                      Pagos
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/dashboard/waiting-queues" className="text-sm text-gray-400 hover:text-white">
+                      Colas de Espera
+                    </Link>
+                  </li>
                 </ul>
               )}
+
             </li>
 
             <li>
