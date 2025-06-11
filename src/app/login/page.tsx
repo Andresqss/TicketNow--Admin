@@ -3,20 +3,24 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { UserIcon, LockClosedIcon } from "@heroicons/react/24/solid";
-import ErrorMessage from "@/components/utils/ErroMessage"; // Asegúrate que esté en /components
-import { login } from "@/lib/auth"; // Asegúrate que esté en /services
+import ErrorMessage from "@/components/utils/ErrorMessage";
+import { login as loginApi } from "@/services/auth/api";
+import { useAuth } from "@/context/AuthContext"; // Asegúrate que esté bien la ruta
 
 export default function LoginPage() {
-  const [nombreUsuario, setNombreUsuario] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState<{ nombreUsuario?: string; password?: string; general?: string }>({});
+  const [errors, setErrors] = useState<{ email?: string; password?: string; general?: string }>({});
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { login } = useAuth(); // contexto
 
   const validate = () => {
-    const newErrors: { nombreUsuario?: string; password?: string } = {};
-    if (!nombreUsuario) {
-      newErrors.nombreUsuario = "El nombre de usuario es obligatorio.";
+    const newErrors: { email?: string; password?: string } = {};
+    if (!email) {
+      newErrors.email = "El correo electrónico es obligatorio.";
+    } else if (!email.endsWith("@ticketnow.com")) {
+      newErrors.email = "El correo electrónico es invalido.";
     }
     if (!password) {
       newErrors.password = "La contraseña es obligatoria.";
@@ -32,8 +36,9 @@ export default function LoginPage() {
     if (Object.keys(newErrors).length === 0) {
       setLoading(true);
       try {
-        const { access_token } = await login(nombreUsuario, password); // asegúrate de que el login devuelva esto
-        localStorage.setItem('access_token', access_token);
+        const response = await loginApi({ email, password }); // debe ser { email, password }
+        localStorage.setItem('access_token', response.token);
+        login(response.user); // guarda user en contexto
         router.push("/dashboard");
       } catch (error: unknown) {
         setErrors({ general: error instanceof Error ? error.message : "Ocurrió un error inesperado." });
@@ -53,18 +58,18 @@ export default function LoginPage() {
         <p className="text-center text-gray-600 mb-8">Inicia sesión para continuar</p>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label className="block text-sm font-semibold text-gray-700">Nombre de Usuario</label>
+            <label className="block text-sm font-semibold text-gray-700">Correo electrónico</label>
             <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden mt-1">
               <UserIcon className="w-5 h-5 text-gray-500 ml-3 mr-3" />
               <input
-                type="text"
+                type="email"
                 className="w-full p-2 focus:outline-none focus:ring-2 focus:ring-gray-700 text-black"
-                placeholder="Nombre de usuario"
-                value={nombreUsuario}
-                onChange={(e) => setNombreUsuario(e.target.value)}
+                placeholder="Correo electrónico"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            {errors.nombreUsuario && <ErrorMessage message={errors.nombreUsuario} />}
+            {errors.email && <ErrorMessage message={errors.email} />}
           </div>
           <div>
             <label className="block text-sm font-semibold text-gray-700">Contraseña</label>

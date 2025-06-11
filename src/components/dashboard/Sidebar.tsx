@@ -69,13 +69,8 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
 
         {/* Usuario */}
         <div className="relative flex items-center p-4 mb-4 border-b border-gray-800">
-          <img
-            src="https://via.placeholder.com/40"
-            alt="Perfil"
-            className="w-10 h-10 rounded-full mr-3"
-          />
           <div className="flex-1">
-            <h2 className="text-lg font-semibold">{user?.nombre || ''}</h2>
+            <h2 className="text-lg font-semibold">{user?.username || ''}</h2>
             <span className="text-sm text-gray-400">Administrador</span>
           </div>
           <button onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}>
@@ -125,7 +120,8 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
               >
                 <span className="flex items-center space-x-4">
                   <UserIcon className="w-6 h-6" />
-                  <span>Perfil</span>
+ 
+                 <span>Perfil</span>
                 </span>
                 <ChevronDownIcon className={`w-5 h-5 transition ${isProfileOpen ? 'rotate-180' : 'rotate-0'}`} />
               </button>
@@ -156,32 +152,47 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
                   <span>Administración</span>
                 </span>
                 <ChevronDownIcon className={`w-5 h-5 transition ${isTablesOpen ? 'rotate-180' : 'rotate-0'}`} />
-             </button>
+              </button>
+
               {isTablesOpen && (
                 <ul className="ml-6 mt-2 space-y-1">
+                  <li>
+                    <Link href="/dashboard/events" className="text-sm text-gray-400 hover:text-white">
+                      Eventos
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/dashboard/event-types" className="text-sm text-gray-400 hover:text-white">
+                      Tipos de Evento
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/dashboard/schedules" className="text-sm text-gray-400 hover:text-white">
+                      Horarios
+                    </Link>
+                  </li>
                   <li>
                     <Link href="/dashboard/reservations" className="text-sm text-gray-400 hover:text-white">
                       Reservaciones
                     </Link>
                   </li>
                   <li>
-                    <Link href="/dashboard/ticket-types" className="text-sm text-gray-400 hover:text-white">
-                      Tipos de Ticket
+                    <Link href="/dashboard/users" className="text-sm text-gray-400 hover:text-white">
+                      Usuarios
                     </Link>
                   </li>
                   <li>
-                    <Link href="/dashboard/payment-logs" className="text-sm text-gray-400 hover:text-white">
+                    <Link href="/dashboard/payment" className="text-sm text-gray-400 hover:text-white">
                       Pagos
                     </Link>
                   </li>
                   <li>
-                    <Link href="/dashboard/waiting-queues" className="text-sm text-gray-400 hover:text-white">
+                    <Link href="/dashboard/queues" className="text-sm text-gray-400 hover:text-white">
                       Colas de Espera
                     </Link>
                   </li>
                 </ul>
               )}
-
             </li>
 
             <li>
