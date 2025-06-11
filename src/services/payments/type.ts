@@ -1,5 +1,5 @@
 export interface PaymentLog {
-  id?: string;
+  id: string;
   reservation_id: string;
   status: 'pending' | 'approved' | 'failed' | 'refunded';
   amount: number;

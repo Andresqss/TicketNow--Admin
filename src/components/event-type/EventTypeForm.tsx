@@ -15,6 +15,8 @@ import {
   getEventTypeById,
   updateEventType,
 } from '@/services/event-types/api';
+import { getHmrRefreshHash } from 'next/dist/server/app-render/work-unit-async-storage.external';
+import PageLoader from 'next/dist/client/page-loader';
 
 interface Props {
   id?: number;
@@ -117,7 +119,8 @@ export default function EventTypeFormModal({ id }: Props) {
               text: 'Nuevo tipo de evento creado.',
             });
           }
-          router.push("/dashboard/event-types");
+          router.push('/dashboard/event-types');
+          window.location.reload();
         } catch {
           await Swal.fire({
             theme: 'dark',

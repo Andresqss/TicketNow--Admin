@@ -80,9 +80,6 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
             <div className="absolute top-full left-0 mt-2 w-full bg-gray-800 shadow-lg rounded-lg z-10">
               <ul className="py-2">
                 <li>
-                  <Link href="#" className="block px-4 py-2 text-gray-200 hover:bg-gray-700">Ver perfil</Link>
-                </li>
-                <li>
                   <button onClick={handleLogout} className="block w-full px-4 py-2 text-left text-gray-200 hover:bg-gray-700">Cerrar sesión</button>
                 </li>
               </ul>
@@ -98,7 +95,7 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
                 href="/dashboard"
                 className={`flex items-center space-x-4 p-2 rounded-lg transition-colors ${
                   isActive('/dashboard')
-                    ? 'bg-blue-600 text-white'
+                    ? 'text-white'
                     : 'hover:bg-gray-800 text-gray-300'
                 }`}
                 onClick={() => setIsSidebarOpen(false)}
@@ -106,35 +103,6 @@ export default function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProp
                 <HomeIcon className="w-6 h-6" />
                 <span>Inicio</span>
               </Link>
-            </li>
-
-            {/* Sección Perfil */}
-            <li>
-              <button
-                className={`flex items-center justify-between w-full text-left p-2 rounded-lg transition-colors ${
-                  isPrefix('/perfil')
-                    ? 'bg-blue-600 text-white'
-                    : 'hover:bg-gray-800 text-gray-300'
-                }`}
-                onClick={() => setIsProfileOpen(!isProfileOpen)}
-              >
-                <span className="flex items-center space-x-4">
-                  <UserIcon className="w-6 h-6" />
- 
-                 <span>Perfil</span>
-                </span>
-                <ChevronDownIcon className={`w-5 h-5 transition ${isProfileOpen ? 'rotate-180' : 'rotate-0'}`} />
-              </button>
-              {isProfileOpen && (
-                <ul className="ml-6 mt-2 space-y-1">
-                  <li>
-                    <Link href="/perfil/editar" className="text-sm text-gray-400 hover:text-white">Editar perfil</Link>
-                  </li>
-                  <li>
-                    <Link href="/perfil/configuracion" className="text-sm text-gray-400 hover:text-white">Configuración</Link>
-                  </li>
-                </ul>
-              )}
             </li>
 
             {/* Sección Administración */}

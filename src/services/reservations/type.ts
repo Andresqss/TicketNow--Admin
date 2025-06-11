@@ -6,7 +6,7 @@ export interface Ticket {
 }
 
 export interface Reservation {
-  id?: string;
+  id: string;
   event_id: string;
   user_id: string;
   guest_email: string;

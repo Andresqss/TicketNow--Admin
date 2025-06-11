@@ -9,7 +9,7 @@ export interface Event {
   start_datetime: string;
   end_datetime: string;
   capacity: number;
-  base_price?: string;
+  base_price?: number;
   is_active?: boolean;
   created_at?: string;
   updated_at?: string;
